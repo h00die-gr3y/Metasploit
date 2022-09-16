@@ -37,3 +37,8 @@ Apache Spark versions 3.0.3 and earlier, versions 3.1.1 to 3.1.2, and versions 3
 # msfconsole
 msf6> reload_all
 ```
+**UPDATE September 13, 2022:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/linux/http/apache_spark_rce_cve_2022_33891`
+
+https://www.rapid7.com/blog/post/2022/09/09/metasploit-weekly-wrap-up-175/
