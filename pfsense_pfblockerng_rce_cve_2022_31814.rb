@@ -37,6 +37,7 @@ class MetasploitModule < Msf::Exploit::Remote
         'References' => [
           ['CVE', '2022-31814'],
           ['PACKETSTORM', '168484'],
+          ['URL', 'https://attackerkb.com/topics/9nnHM9M4w5/cve-2022-31814'],
           ['URL', 'https://www.ihteam.net/advisory/pfblockerng-unauth-rce-vulnerability/'],
           ['URL', 'https://docs.netgate.com/pfsense/en/latest/packages/pfblocker.html']
         ],
