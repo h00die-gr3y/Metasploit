@@ -8,7 +8,8 @@ This repository contains private developed Metasploit modules that can be reused
 
 ## Module listing
 * auxiliary/admin/http/hikvision_unauth_pwd_reset.rb
-* exploits/linux/http/apache_spark_exec.rb
+* exploit/linux/http/apache_spark_exec.rb
+* exploit/unix/http/pfsense_pfblockerng_rce_cve_2022_31814
 
 ## Module details
 
@@ -25,6 +26,11 @@ This module allows the attacker to perform an unauthenticated password change of
 # msfconsole
 msf6> reload_all
 ```
+**UPDATE September 30, 2022:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:
+`auxiliary/admin/http/hikvision_unauth_pwd_reset_cve_2017_7921`
+
+https://www.rapid7.com/blog/post/2022/09/30/metasploit-weekly-wrap-up-178/
 
 ### exploits/linux/http/apache_spark_exec.rb
 This module exploits an unauthenticated command injection vulnerability in Apache Spark. Successful exploitation results in remote code execution under the context of the Spark application user. The command injection occurs because Spark checks the group membership of the user passed in the ?doAs parameter by using a raw Linux command. It is triggered by a non-default setting called `spark.acls.enable`. This configuration setting `spark.acls.enable` should be set **true** in the Spark configuration to make the application vulnerable for this attack. 
@@ -42,3 +48,16 @@ This module has been added to the main stream of Metasploit and is now available
 `exploit/linux/http/apache_spark_rce_cve_2022_33891`
 
 https://www.rapid7.com/blog/post/2022/09/09/metasploit-weekly-wrap-up-175/
+
+### exploit/unix/http/pfsense_pfblockerng_rce_cve_2022_31814
+unauthenticated Remote Command Execution as root in the pfSense pfBlockerNG plugin.
+
+This module exploits an unauthenticated Remote Command Execution as root in the pfSense pfBlockerNG plugin (CVE-2022-31814). The vulnerability affects versions of pfBlockerNG <= 2.1.4_26 and can be exploited by an un authenticated user gaining root access.
+pfBlockerNG is a pfSense plugin that is NOT installed by default and it’s generally used to block inbound connections from wholecountries or IP ranges. This module uses the vulnerability to upload and execute payloads with root privileges.
+
+**Installation:**
+```
+# cp pfsense_pfblockerng_rce_cve_2022_31814 ~/.msf4/modules/exploits/unix/http/
+# msfconsole
+msf6> reload_all
+```
