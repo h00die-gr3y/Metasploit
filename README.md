@@ -53,7 +53,7 @@ https://www.rapid7.com/blog/post/2022/09/09/metasploit-weekly-wrap-up-175/
 unauthenticated Remote Command Execution as root in the pfSense pfBlockerNG plugin.
 
 This module exploits an unauthenticated Remote Command Execution as root in the pfSense pfBlockerNG plugin (CVE-2022-31814). The vulnerability affects versions of pfBlockerNG <= 2.1.4_26 and can be exploited by an un authenticated user gaining root access.
-pfBlockerNG is a pfSense plugin that is NOT installed by default and it’s generally used to block inbound connections from wholecountries or IP ranges. This module uses the vulnerability to upload and execute payloads with root privileges.
+pfBlockerNG is a pfSense plugin that is NOT installed by default and it’s generally used to block inbound connections from wholecountries or IP ranges. This module uses the vulnerability to upload and execute payloads gaining root privileges.
 
 **Installation:**
 ```
