@@ -9,7 +9,8 @@ This repository contains private developed Metasploit modules that can be reused
 ## Module listing
 * auxiliary/admin/http/hikvision_unauth_pwd_reset.rb
 * exploit/linux/http/apache_spark_exec.rb
-* exploit/unix/http/pfsense_pfblockerng_rce_cve_2022_31814
+* exploit/unix/http/pfsense_pfblockerng_rce_cve_2022_31814.rb
+* exploit/linux/http/flir_ax8_unauth_rce_cve_2022_37061.rb
 
 ## Module details
 
@@ -49,7 +50,7 @@ This module has been added to the main stream of Metasploit and is now available
 
 https://www.rapid7.com/blog/post/2022/09/09/metasploit-weekly-wrap-up-175/
 
-### exploit/unix/http/pfsense_pfblockerng_rce_cve_2022_31814
+### exploit/unix/http/pfsense_pfblockerng_rce_cve_2022_31814.rb
 unauthenticated Remote Command Execution as root in the pfSense pfBlockerNG plugin.
 
 This module exploits an unauthenticated Remote Command Execution as root in the pfSense pfBlockerNG plugin (CVE-2022-31814). The vulnerability affects versions of pfBlockerNG <= 2.1.4_26 and can be exploited by an un authenticated user gaining root access.
@@ -57,7 +58,23 @@ pfBlockerNG is a pfSense plugin that is NOT installed by default and it’s gene
 
 **Installation:**
 ```
-# cp pfsense_pfblockerng_rce_cve_2022_31814 ~/.msf4/modules/exploits/unix/http/
+# cp pfsense_pfblockerng_rce_cve_2022_31814.rb ~/.msf4/modules/exploits/unix/http/
+# msfconsole
+msf6> reload_all
+```
+
+### exploit/linux/http/flir_ax8_unauth_rce_cve_2022_37061.rb
+FLIR AX8 is affected by an unauthenticated remote command injection vulnerability.
+
+FLIR AX8 is a thermal sensor with imaging capabilities, combining thermal and visual cameras that provides continuous temperature monitoring and alarming for critical electrical and mechanical equipment.
+
+All FLIR AX8 thermal sensor cameras version up to and including `1.46.16` are vulnerable to Remote Command Injection.<br />
+This can be exploited to inject and execute arbitrary shell commands as the root user through the id HTTP POST parameter in the `res.php` endpoint.
+This module uses the vulnerability to upload and execute payloads gaining root privileges.
+
+**Installation:**
+```
+# cp flir_ax8_unauth_rce_cve_2022_37061.rb ~/.msf4/modules/exploits/unix/http/
 # msfconsole
 msf6> reload_all
 ```
