@@ -73,7 +73,7 @@ FLIR AX8 is affected by an unauthenticated remote command injection vulnerabilit
 
 FLIR AX8 is a thermal sensor with imaging capabilities, combining thermal and visual cameras that provides continuous temperature monitoring and alarming for critical electrical and mechanical equipment.
 
-All FLIR AX8 thermal sensor cameras version up to and including `1.46.16` are vulnerable to Remote Command Injection.<br />
+All FLIR AX8 thermal sensor cameras versions up to and including `1.46.16` are vulnerable to Remote Command Injection.<br />
 This can be exploited to inject and execute arbitrary shell commands as the root user through the id HTTP POST parameter in the `res.php` endpoint.
 This module uses the vulnerability to upload and execute payloads gaining root privileges.
 
