@@ -63,7 +63,7 @@ pfBlockerNG is a pfSense plugin that is NOT installed by default and it’s gene
 msf6> reload_all
 ```
 **UPDATE October 14, 2022:**<br />
-Similar module is now available the main stream of Metasploit<br />
+Similar module is now available at the main stream of Metasploit<br />
 `exploit/unix/http/pfsense_pfblockerng_webshell`
 
 https://www.rapid7.com/blog/post/2022/10/14/metasploit-wrap-up-155/
