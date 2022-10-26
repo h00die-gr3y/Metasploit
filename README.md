@@ -78,3 +78,9 @@ This module uses the vulnerability to upload and execute payloads gaining root p
 # msfconsole
 msf6> reload_all
 ```
+
+**UPDATE October 14, 2022:**<br />
+Similar module is now available the main stream of Metasploit<br />
+`exploit/unix/http/pfsense_pfblockerng_webshell`
+
+https://www.rapid7.com/blog/post/2022/10/14/metasploit-wrap-up-155/
