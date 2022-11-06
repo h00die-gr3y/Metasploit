@@ -11,6 +11,7 @@ This repository contains private developed Metasploit modules that can be reused
 * exploit/linux/http/apache_spark_exec.rb
 * exploit/unix/http/pfsense_pfblockerng_rce_cve_2022_31814.rb
 * exploit/linux/http/flir_ax8_unauth_rce_cve_2022_37061.rb
+* exploit/linux/http/vmware_nsxmgr_xstream_rce_cve_2021_39144.rb
 
 ## Module details
 
@@ -79,7 +80,20 @@ This module uses the vulnerability to upload and execute payloads gaining root p
 
 **Installation:**
 ```
-# cp flir_ax8_unauth_rce_cve_2022_37061.rb ~/.msf4/modules/exploits/unix/http/
+# cp flir_ax8_unauth_rce_cve_2022_37061.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
+```
+
+### exploit/linux/http/vmware_nsxmgr_xstream_rce_cve_2021_39144.rb
+VMware Cloud Foundation (NSX-V) contains a remote code execution vulnerability via XStream open source library.<br />
+Due to an unauthenticated endpoint that leverages XStream for input serialization in VMware Cloud Foundation (NSX-V), a malicious actor can get remote code execution in the context of `root` on the appliance.<br />
+VMware Cloud Foundation `3.x` and more specific NSX Manager Data Center for vSphere up to and including version `6.4.13` are vulnerable to Remote Command Injection.<br /><br />
+This module exploits the vulnerability to upload and execute payloads gaining root privileges.
+
+**Installation:**
+```
+# cp vmware_nsxmgr_xstream_rce_cve_2021_39144.rb ~/.msf4/modules/exploits/linux/http/
 # msfconsole
 msf6> reload_all
 ```
