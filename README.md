@@ -12,6 +12,7 @@ This repository contains private developed Metasploit modules that can be reused
 * exploit/unix/http/pfsense_pfblockerng_rce_cve_2022_31814.rb
 * exploit/linux/http/flir_ax8_unauth_rce_cve_2022_37061.rb
 * exploit/linux/http/vmware_nsxmgr_xstream_rce_cve_2021_39144.rb
+* exploit/linux/http/linear_emerge_unauth_rce_cve_2019_7256.rb
 
 ## Module details
 
@@ -84,6 +85,11 @@ This module uses the vulnerability to upload and execute payloads gaining root p
 # msfconsole
 msf6> reload_all
 ```
+**UPDATE November 4, 2022:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/linux/http/flir_ax8_unauth_rce_cve_2022_37061`
+
+https://www.rapid7.com/blog/post/2022/11/04/metasploit-weekly-wrap-up-182/
 
 ### exploit/linux/http/vmware_nsxmgr_xstream_rce_cve_2021_39144.rb
 VMware Cloud Foundation (NSX-V) contains a remote code execution vulnerability via XStream open source library.<br />
@@ -97,3 +103,35 @@ This module exploits the vulnerability to upload and execute payloads gaining ro
 # msfconsole
 msf6> reload_all
 ```
+**UPDATE November 18, 2022:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/linux/http/vmware_nsxmgr_xstream_rce_cve_2021_39144`
+
+https://www.rapid7.com/blog/post/2022/11/18/metasploit-weekly-wrap-up-184/
+
+### exploit/linux/http/linear_emerge_unauth_rce_cve_2019_7256.rb
+Nortek Security & Control, LLC (NSC) is a leader in wireless security, home automation and personal safety systems and devices. The eMerge E3-Series is part of Linear’s access control platform, that delivers entry-level access control to buildings.<br />
+It is a web based application where the HTTP web interface is typically exposed to the public internet.<br />
+
+The Linear eMerge E3-Series with firmware versions `1.00-06` and below are vulnerable to an unauthenticated command injection remote root exploit that leverages card_scan_decoder.php.<br />
+This can be exploited to inject and execute arbitrary shell commands as the root user through the No and door HTTP GET parameter.<br />
+A successful exploit could allow the attacker to execute arbitrary commands on the underlying operating system with the root privileges.<br />
+
+Building automation and access control systems are at the heart of many critical infrastructures, and their security is vital.<br />
+Executing attacks on these systems may enable unauthenticated attackers to access and manipulate doors, elevators, air-conditioning systems, cameras, boilers, lights, safety alarm systems within a building.<br />
+
+This issue affects all Linear eMerge E3 versions up to and including `1.00-06`.<br />
+
+**Installation:**
+```
+# cp linear_emerge_unauth_rce_cve_2019_7256.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
+```
+**UPDATE January 06, 2023:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/linux/http/linear_emerge_unauth_rce_cve_2019_7256`
+
+https://www.rapid7.com/blog/post/2023/01/06/metasploit-weekly-wrap-up-4/
+
+
