@@ -137,7 +137,7 @@ https://www.rapid7.com/blog/post/2023/01/06/metasploit-weekly-wrap-up-4/
 
 ### exploit/linux/http/ivanti_csa_unauth_rce_cve_2021_44529.rb
 This module exploits a command injection vulnerability in the Ivanti Cloud Services Appliance (CSA)for Ivanti Endpoint Manager.<br />
-A cookie based code injection vulnerability in the Cloud Services Appliance before `4.6.0-512` allows an unauthenticated user<br />
+A cookie based code injection vulnerability in the Cloud Services Appliance before `4.6.0-512` allows an unauthenticated user
 to execute arbitrary code with limited permissions.<br />
 Successful exploitation results in command execution as the `nobody` user.<br />
 
