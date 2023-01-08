@@ -13,6 +13,7 @@ This repository contains private developed Metasploit modules that can be reused
 * exploit/linux/http/flir_ax8_unauth_rce_cve_2022_37061.rb
 * exploit/linux/http/vmware_nsxmgr_xstream_rce_cve_2021_39144.rb
 * exploit/linux/http/linear_emerge_unauth_rce_cve_2019_7256.rb
+* exploit/linux/http/ivanti_csa_unauth_rce_cve_2021_44529.rb
 
 ## Module details
 
@@ -134,4 +135,16 @@ This module has been added to the main stream of Metasploit and is now available
 
 https://www.rapid7.com/blog/post/2023/01/06/metasploit-weekly-wrap-up-4/
 
+### exploit/linux/http/ivanti_csa_unauth_rce_cve_2021_44529.rb
+This module exploits a command injection vulnerability in the Ivanti Cloud Services Appliance (CSA)for Ivanti Endpoint Manager.<br />
+A cookie based code injection vulnerability in the Cloud Services Appliance before `4.6.0-512` allows an unauthenticated user<br />
+to execute arbitrary code with limited permissions.<br />
+Successful exploitation results in command execution as the `nobody` user.<br />
+
+**Installation:**
+```
+# cp ivanti_csa_unauth_rce_cve_2021_44529.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
+```
 
