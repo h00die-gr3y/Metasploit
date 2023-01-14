@@ -26,9 +26,9 @@ Many Hikvision IP cameras contain a backdoor that allows unauthenticated imperso
 This module allows the attacker to perform an unauthenticated password change of any vulnerable Hikvision IP Camera to gaining full administrative access. The vulnerability can be exploited for all configured users.
 
 **Installation:**
-```shell
-cp hikvision_unauth_pwd_reset.rb ~/.msf4/modules/auxiliary/admin/http
-msfconsole
+```console
+# cp hikvision_unauth_pwd_reset.rb ~/.msf4/modules/auxiliary/admin/http
+# msfconsole
 msf6> reload_all
 ```
 **UPDATE September 30, 2022:**<br />
@@ -43,9 +43,9 @@ This module exploits an unauthenticated command injection vulnerability in Apach
 Apache Spark versions 3.0.3 and earlier, versions 3.1.1 to 3.1.2, and versions 3.2.0 to 3.2.1 are affected by this vulnerability.
 
 **Installation:**
-```shell
-cp apache_spark_exec.rb ~/.msf4/modules/exploits/linux/http
-msfconsole
+```console
+# cp apache_spark_exec.rb ~/.msf4/modules/exploits/linux/http
+# msfconsole
 msf6> reload_all
 ```
 **UPDATE September 13, 2022:**<br />
@@ -61,9 +61,9 @@ This module exploits an unauthenticated Remote Command Execution as root in the 
 pfBlockerNG is a pfSense plugin that is NOT installed by default and it’s generally used to block inbound connections from wholecountries or IP ranges. This module uses the vulnerability to upload and execute payloads gaining root privileges.
 
 **Installation:**
-```shell
-cp pfsense_pfblockerng_rce_cve_2022_31814.rb ~/.msf4/modules/exploits/unix/http/
-msfconsole
+```console
+# cp pfsense_pfblockerng_rce_cve_2022_31814.rb ~/.msf4/modules/exploits/unix/http/
+# msfconsole
 msf6> reload_all
 ```
 **UPDATE October 14, 2022:**<br />
@@ -82,9 +82,9 @@ This can be exploited to inject and execute arbitrary shell commands as the root
 This module uses the vulnerability to upload and execute payloads gaining root privileges.
 
 **Installation:**
-```shell
-cp flir_ax8_unauth_rce_cve_2022_37061.rb ~/.msf4/modules/exploits/linux/http/
-msfconsole
+```console
+# cp flir_ax8_unauth_rce_cve_2022_37061.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
 msf6> reload_all
 ```
 **UPDATE November 4, 2022:**<br />
@@ -100,9 +100,9 @@ VMware Cloud Foundation `3.x` and more specific NSX Manager Data Center for vSph
 This module exploits the vulnerability to upload and execute payloads gaining root privileges.
 
 **Installation:**
-```shell
-cp vmware_nsxmgr_xstream_rce_cve_2021_39144.rb ~/.msf4/modules/exploits/linux/http/
-msfconsole
+```console
+# cp vmware_nsxmgr_xstream_rce_cve_2021_39144.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
 msf6> reload_all
 ```
 **UPDATE November 18, 2022:**<br />
@@ -125,9 +125,9 @@ Executing attacks on these systems may enable unauthenticated attackers to acces
 This issue affects all Linear eMerge E3 versions up to and including `1.00-06`.<br />
 
 **Installation:**
-```shell
-cp linear_emerge_unauth_rce_cve_2019_7256.rb ~/.msf4/modules/exploits/linux/http/
-msfconsole
+```console
+# cp linear_emerge_unauth_rce_cve_2019_7256.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
 msf6> reload_all
 ```
 **UPDATE January 06, 2023:**<br />
@@ -143,9 +143,9 @@ to execute arbitrary code with limited permissions.<br />
 Successful exploitation results in command execution as the `nobody` user.<br />
 
 **Installation:**
-```shell
-cp ivanti_csa_unauth_rce_cve_2021_44529.rb ~/.msf4/modules/exploits/linux/http/
-msfconsole
+```console
+# cp ivanti_csa_unauth_rce_cve_2021_44529.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
 msf6> reload_all
 ```
 
@@ -158,8 +158,8 @@ port `2031` and port `2087` for `https`. Successful exploitation results in comm
 CWP versions `0.9.8.1146` and below are vulnerable.
 
 **Installation:**
-```shell
-cp control_web_panel_unauth_rce_cve_2022_44877.rb ~/.msf4/modules/exploits/linux/http/
-msfconsole
+```console
+# cp control_web_panel_unauth_rce_cve_2022_44877.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
 msf6> reload_all
 ```
