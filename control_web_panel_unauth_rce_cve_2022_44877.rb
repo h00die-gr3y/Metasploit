@@ -34,7 +34,7 @@ class MetasploitModule < Msf::Exploit::Remote
           ['CVE', '2022-44877'],
           ['URL', 'https://github.com/numanturle/CVE-2022-44877'],
           ['URL', 'https://control-webpanel.com/changelog#1669855527714-450fb335-6194'],
-          ['URL', 'https://attackerkb.com/topics/XTKrwlZd7p/cve-2022-44877'],
+          ['URL', 'https://attackerkb.com/topics/cvIPkChzTY/cve-2022-44877'],
           ['PACKETSTORM', '166383']
         ],
         'DisclosureDate' => '2023-01-09',
