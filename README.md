@@ -15,6 +15,7 @@ This repository contains private developed Metasploit modules that can be reused
 * exploit/linux/http/linear_emerge_unauth_rce_cve_2019_7256.rb
 * exploit/linux/http/ivanti_csa_unauth_rce_cve_2021_44529.rb
 * exploit/linux/http/control_web_panel_unauth_rce_cve_2022_44877.rb
+* exploit/linux/http/sugarcrm_webshell_cve_2023_22952.rb
 
 ## Module details
 
