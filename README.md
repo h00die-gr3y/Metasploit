@@ -163,3 +163,17 @@ CWP versions `0.9.8.1146` and below are vulnerable.
 # msfconsole
 msf6> reload_all
 ```
+### exploit/linux/http/sugarcrm_webshell_cve_2023_22952.rb
+This module exploits a Remote Code Execution vulnerability that has been identified in the SugarCRM application.<br />
+Using a specially crafted request, custom PHP code can be uploaded and injected through the EmailTemplates because of missing input validation.
+Any user privileges can exploit this vulnerability and it results in access to the underlying operating system with the same privileges
+under which the web services run (typically user www-data).
+SugarCRM 11.0 Professional, Enterprise, Ultimate, Sell and Serve versions `11.0.4` and below are affected. Fixed in release `11.0.5`.<br />
+SugarCRM 12.0 Enterprise, Sell and Serve versions `12.0.1` and below are affected. Fixed in release `12.0.2`.<br />
+
+**Installation:**
+```console
+# cp sugarcrm_webshell_cve_2023_22952.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
+```
