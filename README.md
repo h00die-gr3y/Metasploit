@@ -149,6 +149,11 @@ Successful exploitation results in command execution as the `nobody` user.<br />
 # msfconsole
 msf6> reload_all
 ```
+**UPDATE January 20, 2023:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/linux/http/ivanti_csa_unauth_rce_cve_2021_44529.rb`
+
+https://www.rapid7.com/blog/post/2023/01/20/metasploit-weekly-wrap-up-189/
 
 ### exploit/linux/http/control_web_panel_unauth_rce_cve_2022_44877.rb
 This module exploits a remote command execution vulnerability in the Control Web Panel (CWP) application.<br />
@@ -178,3 +183,8 @@ SugarCRM 12.0 Enterprise, Sell and Serve versions `12.0.1` and below are affecte
 # msfconsole
 msf6> reload_all
 ```
+**UPDATE March 10, 2023:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/multi/http/sugarcrm_webshell_cve_2023_22952.rb`
+
+https://www.rapid7.com/blog/post/2023/03/10/metasploit-weekly-wrap-up-196/
