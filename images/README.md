@@ -1,7 +1,7 @@
 ## Images for testing the Metasploit modules
 ### Optergy Proton Linux Debian 7 Image 
 file -> Optergy_Proton_Debian7.ova</br>
-root password = Il0vehacking</br> -> Capital i and Lowercase l
+root password = Il0vehacking -> (capital i and lowercase l) </br>
 optergy password = Il0vehacking
 
 ### Steps to setup
