@@ -17,6 +17,7 @@ This repository contains private developed Metasploit modules that can be reused
 * exploit/linux/http/control_web_panel_unauth_rce_cve_2022_44877.rb
 * exploit/linux/http/sugarcrm_webshell_cve_2023_22952.rb
 * exploit/linux/http/optergy_bms_backdoor_rce_cve_2019_7276.rb
+* exploit/multi/http/bash_env_cgi_rce.rb
 
 ## Module details
 
@@ -190,7 +191,7 @@ This module has been added to the main stream of Metasploit and is now available
 
 https://www.rapid7.com/blog/post/2023/03/10/metasploit-weekly-wrap-up-196/
 
-### exploits/linux/http/optergy_bms_backdoor_rce_cve_2019_7276.rb
+### exploit/linux/http/optergy_bms_backdoor_rce_cve_2019_7276.rb
 This module exploits an undocumented backdoor vulnerability in the Optergy Proton and Enterprise Building Management System (BMS) applications. Versions `2.0.3a` and below are vulnerable.
 Attackers can exploit this issue by directly navigating to an undocumented backdoor script called `Console.jsp` in the tools directory and gain full system access.
 Successful exploitation results in `root` command execution using `sudo` as user `optergy`.
@@ -198,6 +199,16 @@ Successful exploitation results in `root` command execution using `sudo` as user
 **Installation:**
 ```console
 # cp optergy_bms_backdoor_rce_cve_2019_7276.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
+```
+
+### exploit/multi/http/bash_env_cgi_rce.rb
+This module exploits the Shellshock vulnerability, a flaw in how the Bash shell handles external environment variables. This module targets CGI scripts in web servers by setting the `HTTP_USER_AGENT` environment variable to a malicious function definition.
+
+**Installation:**
+```console
+# cp bash_env_cgi_rce.rb ~/.msf4/modules/exploits/multi/http/
 # msfconsole
 msf6> reload_all
 ```
