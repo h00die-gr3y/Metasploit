@@ -202,6 +202,11 @@ Successful exploitation results in `root` command execution using `sudo` as user
 # msfconsole
 msf6> reload_all
 ```
+**UPDATE March 31, 2023:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/linux/http/optergy_bms_backdoor_rce_cve_2019_7276.rb`
+
+https://www.rapid7.com/blog/post/2023/03/31/metasploit-weekly-wrap-up-198/
 
 ### exploit/multi/http/bash_env_cgi_rce.rb
 This module exploits the Shellshock vulnerability, a flaw in how the Bash shell handles external environment variables. This module targets CGI scripts in web servers by setting the `HTTP_USER_AGENT` environment variable to a malicious function definition.
