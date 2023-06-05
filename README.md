@@ -18,6 +18,7 @@ This repository contains private developed Metasploit modules that can be reused
 * exploit/linux/http/sugarcrm_webshell_cve_2023_22952.rb
 * exploit/linux/http/optergy_bms_backdoor_rce_cve_2019_7276.rb
 * exploit/multi/http/bash_env_cgi_rce.rb
+* exploit/linux/http/terramaster_unauth_rce_cve_2020_35665.rb
 
 ## Module details
 
@@ -217,3 +218,14 @@ This module exploits the Shellshock vulnerability, a flaw in how the Bash shell 
 # msfconsole
 msf6> reload_all
 ```
+### exploit/linux/http/terramaster_unauth_rce_cve_2020_35665.rb
+This module is exploiting a vulnerability described in [CVE-2020-35665](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35665) or [CVE-2020-28188](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-28188) that allows an unauthenticated attacker to upload a webshell via shell metacharacters in the `Event` parameter using the vulnerable endpoint `include/makecvs.php` during the `CSV` creation process.
+See this [AttackerKB Article](https://attackerkb.com/topics/lXY4yjOvwx/cve-2020-35665) for more details.
+
+Because of this, any remote attacker, regardless of authentication, can exploit this vulnerability to gain access to the underlying operating system as the user that the web services are running as (typically `root` in case of TerraMaster).
+
+**Installation:**
+```console
+# cp terramaster_unauth_rce_cve_2020_35665.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
