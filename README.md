@@ -220,7 +220,7 @@ This module exploits the Shellshock vulnerability, a flaw in how the Bash shell 
 # msfconsole
 msf6> reload_all
 ```
-### exploit/linux/http/terramaster_unauth_rce_cve_2020_35665.rb
+### exploit/linux/http/terramaster_unauth_rce_cve_2020_35665.rb a.k.a. TerrorMaster 1
 This module is exploiting a vulnerability described in [CVE-2020-35665](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35665) or [CVE-2020-28188](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-28188) that allows an unauthenticated attacker to upload a webshell via shell metacharacters in the `Event` parameter using the vulnerable endpoint `include/makecvs.php` during the `CSV` creation process.
 See this [AttackerKB Article](https://attackerkb.com/topics/lXY4yjOvwx/cve-2020-35665) for more details.
 
@@ -232,7 +232,7 @@ Because of this, any remote attacker, regardless of authentication, can exploit 
 # msfconsole
 msf6> reload_all
 ```
-### exploit/linux/http/terramaster_unauth_rce_cve_2021_45837.rb
+### exploit/linux/http/terramaster_unauth_rce_cve_2021_45837.rb a.k.a. TerrorMaster 2
 This module provides a Terramaster chained exploit that performs session crafting to achieve escalated privileges that allows an attacker to access vulnerable code execution flaws. TOS versions `4.2.15` and below  are affected. 
 
 [CVE-2021-45839](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-45839) is exploited to obtain the first administrator's hash set up on the system as well as other information such as MAC address, by performing a `POST` request to the `/module/api.php?mobile/webNasIPS` endpoint.
@@ -248,7 +248,7 @@ See this [AttackerKB Article](https://attackerkb.com/topics/8rNXrrjQNy/cve-2021-
 # msfconsole
 msf6> reload_all
 ```
-### exploit/linux/http/terramaster_unauth_rce_cve_2022_24990.rb
+### exploit/linux/http/terramaster_unauth_rce_cve_2022_24990.rb a.k.a. TerrorMaster 3
 This module exploits an unauthenticated remote code execution vulnerability in TerraMaster TOS `4.2.29` and lower by chaining two existing vulnerabilities, [CVE-2022-24990: Leaking sensitive information](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-24990) and [CVE-2022-24989: Authenticated remote code execution](https://www.redpacketsecurity.com/terramaster-tos-command-execution-cve-2022-24989/).
 Exploiting vulnerable endpoint `api.php?mobile/webNasIPS` leaking sensitive information such as admin password hash and mac address, the attacker can achieve unauthenticated access and use another vulnerable endpoint `api.php?mobile/createRaid` with POST parameters `raidtype` and `diskstring` to upload a webshell and execute remote code as root on TerraMaster NAS devices.
 
