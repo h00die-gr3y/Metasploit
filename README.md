@@ -19,6 +19,8 @@ This repository contains private developed Metasploit modules that can be reused
 * exploit/linux/http/optergy_bms_backdoor_rce_cve_2019_7276.rb
 * exploit/multi/http/bash_env_cgi_rce.rb
 * exploit/linux/http/terramaster_unauth_rce_cve_2020_35665.rb
+* exploit/linux/http/terramaster_unauth_rce_cve_2021_45837.rb
+* exploit/linux/http/terramaster_unauth_rce_cve_2022_24990.rb
 
 ## Module details
 
@@ -229,3 +231,32 @@ Because of this, any remote attacker, regardless of authentication, can exploit 
 # cp terramaster_unauth_rce_cve_2020_35665.rb ~/.msf4/modules/exploits/linux/http/
 # msfconsole
 msf6> reload_all
+```
+### exploit/linux/http/terramaster_unauth_rce_cve_2021_45837.rb
+This module provides a Terramaster chained exploit that performs session crafting to achieve escalated privileges that allows an attacker to access vulnerable code execution flaws. TOS versions `4.2.15` and below  are affected. 
+
+[CVE-2021-45839](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-45839) is exploited to obtain the first administrator's hash set up on the system as well as other information such as MAC address, by performing a `POST` request to the `/module/api.php?mobile/webNasIPS` endpoint.
+This information is used to craft an unauthenticated admin session using [CVE-2021-45841](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-45841) where an attacker can self-sign session cookies by knowing the target MAC address and the user password hash.
+Guest users (disabled by default) can be abused using a null/empty hash and allow an unauthenticated attacker to login as guest which is used to download the `/etc/group` info to obtain the list of admin users, used to establish an unauthenticated admin session thru session crafting.
+
+Finally, [CVE-2021-45837](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-45837) is exploited to execute arbitrary commands as root by sending a specifically crafted input to vulnerable endpoint `/tos/index.php?app/del`.
+See this [AttackerKB Article](https://attackerkb.com/topics/8rNXrrjQNy/cve-2021-45837) for more details.
+
+**Installation:**
+```console
+# cp terramaster_unauth_rce_cve_2021_45837.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
+```
+### exploit/linux/http/terramaster_unauth_rce_cve_2022_24990.rb
+This module exploits an unauthenticated remote code execution vulnerability in TerraMaster TOS `4.2.29` and lower by chaining two existing vulnerabilities, [CVE-2022-24990: Leaking sensitive information](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-24990) and [CVE-2022-24989: Authenticated remote code execution](https://www.redpacketsecurity.com/terramaster-tos-command-execution-cve-2022-24989/).
+Exploiting vulnerable endpoint `api.php?mobile/webNasIPS` leaking sensitive information such as admin password hash and mac address, the attacker can achieve unauthenticated access and use another vulnerable endpoint `api.php?mobile/createRaid` with POST parameters `raidtype` and `diskstring` to upload a webshell and execute remote code as root on TerraMaster NAS devices.
+
+See this [AttackerKB Article](https://attackerkb.com/topics/h8YKVKx21t/cve-2022-24990) for more details.
+
+**Installation:**
+```console
+# cp terramaster_unauth_rce_cve_2022_24990.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
+```
