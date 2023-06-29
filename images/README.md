@@ -15,5 +15,5 @@ optergy password = Il0vehacking
 [Download link](https://drive.google.com/file/d/1Iinxl_3gRmh4Ugs9J7dxbJPtXkK0iL6J/view?usp=share_link)
 
 ### Vulnerable WordPress Plugins for CVE-2023-2068
-File Manager Advanced 5.0.5
-File Manager Advanced Shortcode 2.3.2
+- File Manager Advanced 5.0.5
+- File Manager Advanced Shortcode 2.3.2
