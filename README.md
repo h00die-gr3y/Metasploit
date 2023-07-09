@@ -21,6 +21,7 @@ This repository contains private developed Metasploit modules that can be reused
 * exploit/linux/http/terramaster_unauth_rce_cve_2020_35665.rb
 * exploit/linux/http/terramaster_unauth_rce_cve_2021_45837.rb
 * exploit/linux/http/terramaster_unauth_rce_cve_2022_24990.rb
+* exploit/multi/http/openfire_auth_bypass_rce_cve_2023_32315.rb
 
 ## Module details
 
@@ -257,6 +258,21 @@ See this [AttackerKB Article](https://attackerkb.com/topics/h8YKVKx21t/cve-2022-
 **Installation:**
 ```console
 # cp terramaster_unauth_rce_cve_2022_24990.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
+```
+### exploit/multi/http/openfire_auth_bypass_rce_cve_2023_32315.rb
+`Openfire's` administrative console, a web-based application, was found to be vulnerable to a path traversal attack via the setup environment using the path `http://localhost:9090/setup/setup-s/%u002e%u002e/%u002e%u002e/`. Endpoints such as `log.jsp`, `user-groups.jsp` and `user-create.jsp` can be used to gain unauthorized admin access.
+It allows an unauthenticated user to use the unauthenticated `Openfire` Setup Environment in an already configured `Openfire` environment to access restricted pages in the `Openfire Admin Console` reserved for administrative users.
+
+This module will use the vulnerability to create a new admin user that will be used to upload a `Openfire` management plugin weaponized with a `Java` native payload that triggers an RCE. The vulnerability affects all versions of `Openfire` that have been released since April 2015, starting with version `3.10.0`.
+The problem has been patched in `Openfire` release `4.7.5` and `4.6.8`, and further improvements will be included in the first version on the `4.8` branch, which is version `4.8.0`.
+
+See this [AttackerKB Article](https://attackerkb.com/topics/7Tf5YGY3oT/cve-2023-32315) for more details.
+
+**Installation:**
+```console
+# cp openfire_auth_bypass_rce_cve_2023_32315.rb ~/.msf4/modules/exploits/linux/http/
 # msfconsole
 msf6> reload_all
 ```
