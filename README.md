@@ -272,7 +272,7 @@ See this [AttackerKB Article](https://attackerkb.com/topics/7Tf5YGY3oT/cve-2023-
 
 **Installation:**
 ```console
-# cp openfire_auth_bypass_rce_cve_2023_32315.rb ~/.msf4/modules/exploits/linux/http/
+# cp openfire_auth_bypass_rce_cve_2023_32315.rb ~/.msf4/modules/exploits/multi/http/
 # msfconsole
 msf6> reload_all
 ```
