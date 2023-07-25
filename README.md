@@ -261,6 +261,11 @@ See this [AttackerKB Article](https://attackerkb.com/topics/h8YKVKx21t/cve-2022-
 # msfconsole
 msf6> reload_all
 ```
+**UPDATE Jue 16, 2023:**<br />
+All TerraMaster modules have been added to the main stream of Metasploit and are now available under same the module names<br />
+
+https://www.rapid7.com/blog/post/2023/06/16/metasploit-weekly-wrap-up-15/
+
 ### exploit/multi/http/openfire_auth_bypass_rce_cve_2023_32315.rb
 `Openfire's` administrative console, a web-based application, was found to be vulnerable to a path traversal attack via the setup environment using the path `http://localhost:9090/setup/setup-s/%u002e%u002e/%u002e%u002e/`. Endpoints such as `log.jsp`, `user-groups.jsp` and `user-create.jsp` can be used to gain unauthorized admin access.
 It allows an unauthenticated user to use the unauthenticated `Openfire` Setup Environment in an already configured `Openfire` environment to access restricted pages in the `Openfire Admin Console` reserved for administrative users.
@@ -276,3 +281,8 @@ See this [AttackerKB Article](https://attackerkb.com/topics/7Tf5YGY3oT/cve-2023-
 # msfconsole
 msf6> reload_all
 ```
+**UPDATE July 21, 2023:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/multi/http/openfire_auth_bypass_rce_cve_2023_32315`
+
+https://www.rapid7.com/blog/post/2023/07/21/metasploit-weekly-wrap-up-20/
