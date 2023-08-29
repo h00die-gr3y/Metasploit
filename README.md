@@ -22,6 +22,7 @@ This repository contains private developed Metasploit modules that can be reused
 * exploit/linux/http/terramaster_unauth_rce_cve_2021_45837.rb
 * exploit/linux/http/terramaster_unauth_rce_cve_2022_24990.rb
 * exploit/multi/http/openfire_auth_bypass_rce_cve_2023_32315.rb
+* exploit/multi/http/wp_plugin_fma_shortcode_unauth_rce.rb
 * exploit/linux/http/chamilo_unauth_rce_cve_2023_34960.rb
 
 ## Module details
@@ -287,6 +288,28 @@ This module has been added to the main stream of Metasploit and is now available
 `exploit/multi/http/openfire_auth_bypass_rce_cve_2023_32315`
 
 https://www.rapid7.com/blog/post/2023/07/21/metasploit-weekly-wrap-up-20/
+
+### exploit/multi/http/wp_plugin_fma_shortcode_unauth_rce.rb
+The Wordpress plugin does not adequately prevent uploading files with disallowed MIME types when using the shortcode.
+This leads to RCE in cases where the allowed MIME type list does not include PHP files.
+In the worst case, this is available to unauthenticated users, but is also works in an authenticated configuration.
+File Manager Advanced Shortcode plugin version `2.3.2` and lower are vulnerable.
+To install the Shortcode plugin File Manager Advanced version `5.0.5` or lower is required to keep the configuration vulnerable. 
+Any user privileges can exploit this vulnerability which results in access to the underlying operating system with the same privileges under which the Wordpress web services run.
+
+See this [AttackerKB Article](https://attackerkb.com/topics/JncRCWZ5xm/cve-2023-2068) for more details.
+
+**Installation:**
+```console
+# cp wp_plugin_fma_shortcode_unauth_rce.rb ~/.msf4/modules/exploits/multi/http/
+# msfconsole
+msf6> reload_all
+```
+**UPDATE July 28, 2023:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/multi/http/wp_plugin_fma_shortcode_unauth_rce`
+
+https://www.rapid7.com/blog/post/2023/07/28/metasploit-weekly-wrap-up-21/
 
 ### exploit/linux/http/chamilo_unauth_rce_cve_2023_34960.rb
 `Chamilo` is an e-learning platform, also called Learning Management Systems (LMS).
