@@ -22,6 +22,7 @@ This repository contains private developed Metasploit modules that can be reused
 * exploit/linux/http/terramaster_unauth_rce_cve_2021_45837.rb
 * exploit/linux/http/terramaster_unauth_rce_cve_2022_24990.rb
 * exploit/multi/http/openfire_auth_bypass_rce_cve_2023_32315.rb
+* exploit/linux/http/chamilo_unauth_rce_cve_2023_34960.rb
 
 ## Module details
 
@@ -284,5 +285,24 @@ msf6> reload_all
 **UPDATE July 21, 2023:**<br />
 This module has been added to the main stream of Metasploit and is now available under the module name:<br />
 `exploit/multi/http/openfire_auth_bypass_rce_cve_2023_32315`
+
+https://www.rapid7.com/blog/post/2023/07/21/metasploit-weekly-wrap-up-20/
+
+### exploit/linux/http/chamilo_unauth_rce_cve_2023_34960.rb
+`Chamilo` is an e-learning platform, also called Learning Management Systems (LMS).
+This module exploits an unauthenticated remote command execution vulnerability that affects `Chamilo` versions `1.11.18` and below. See also [CVE-2023-34960](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-34960). 
+Due to a functionality called `Chamilo Rapid` to easily convert PowerPoint slides to courses on `Chamilo`, it is possible for an unauthenticated remote attacker to execute arbitrary commands at OS level using a malicious SOAP request at the vulnerable endpoint `/main/webservices/additional_webservices.php`.
+
+Read this [article](https://attackerkb.com/topics/VVJpMeSpUP/cve-2023-34960) on attackerkb.com for more details.
+
+**Installation:**
+```console
+# cp chamilo_unauth_rce_cve_2023_34960.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
+```
+**UPDATE August 25, 2023:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/linux/http/chamilo_unauth_rce_cve_2023_34960`
 
 https://www.rapid7.com/blog/post/2023/07/21/metasploit-weekly-wrap-up-20/
