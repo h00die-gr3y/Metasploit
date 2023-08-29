@@ -305,4 +305,4 @@ msf6> reload_all
 This module has been added to the main stream of Metasploit and is now available under the module name:<br />
 `exploit/linux/http/chamilo_unauth_rce_cve_2023_34960`
 
-https://www.rapid7.com/blog/post/2023/07/21/metasploit-weekly-wrap-up-20/
+https://www.rapid7.com/blog/post/2023/08/25/metasploit-weekly-wrap-up-24/
