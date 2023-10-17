@@ -24,6 +24,8 @@ This repository contains private developed Metasploit modules that can be reused
 * exploit/multi/http/openfire_auth_bypass_rce_cve_2023_32315.rb
 * exploit/multi/http/wp_plugin_fma_shortcode_unauth_rce.rb
 * exploit/linux/http/chamilo_unauth_rce_cve_2023_34960.rb
+* exploit/linux/http/solarview_unauth_rce_cve_2023_23333.rb
+* exploit/linux/http/totolink_unauth_rce_cve_2023_30013.rb
 
 ## Module details
 
@@ -329,3 +331,59 @@ This module has been added to the main stream of Metasploit and is now available
 `exploit/linux/http/chamilo_unauth_rce_cve_2023_34960`
 
 https://www.rapid7.com/blog/post/2023/08/25/metasploit-weekly-wrap-up-24/
+
+### exploit/linux/http/chamilo_unauth_rce_cve_2023_34960.rb
+`Chamilo` is an e-learning platform, also called Learning Management Systems (LMS).
+This module exploits an unauthenticated remote command execution vulnerability that affects `Chamilo` versions `1.11.18` and below. See also [CVE-2023-34960](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-34960). 
+Due to a functionality called `Chamilo Rapid` to easily convert PowerPoint slides to courses on `Chamilo`, it is possible for an unauthenticated remote attacker to execute arbitrary commands at OS level using a malicious SOAP request at the vulnerable endpoint `/main/webservices/additional_webservices.php`.
+
+Read this [article](https://attackerkb.com/topics/VVJpMeSpUP/cve-2023-34960) on attackerkb.com for more details.
+
+**Installation:**
+```console
+# cp chamilo_unauth_rce_cve_2023_34960.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
+```
+**UPDATE August 25, 2023:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/linux/http/chamilo_unauth_rce_cve_2023_34960`
+
+https://www.rapid7.com/blog/post/2023/08/25/metasploit-weekly-wrap-up-24/
+
+### exploit/linux/http/solarview_unauth_rce_cve_2023_23333.rb
+[SolarView Compact](https://www.contec.com/products-services/environmental-monitoring/solarview/) has a vulnerability that allows remote code execution on a vulnerable `SolarView Compact` device by bypassing internal restrictions through the vulnerable endpoint `downloader.php` using the `file` parameter. 
+Firmware versions up to `v6.33` are vulnerable.
+
+Read this [article](https://attackerkb.com/topics/kE3lzTZGV2/cve-2023-23333) on attackerkb.com for more details.
+
+**Installation:**
+```console
+# cp solarview_unauth_rce_cve_2023_23333.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
+```
+**UPDATE September 08, 2023:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/linux/http/solarview_unauth_rce_cve_2023_23333`
+
+https://www.rapid7.com/blog/post/2023/09/08/metasploit-weekly-wrap-up-26/
+
+### exploit/linux/http/totolink_unauth_rce_cve_2023_30013.rb
+TOTOLINK X5000R Wireless Gigabit Router firmware X5000R_V9.1.0u.6118_B20201102 contains a command insertion vulnerability in setting/setTracerouteCfg.
+This vulnerability allows an attacker to execute arbitrary commands through the "command" parameter.
+After exploitation, an attacker will have full access with the same user privileges under which the webserver is running (typically as user `root`, ;-).
+
+Read this [article](https://attackerkb.com/topics/xnX3I3PEgM/cve-2023-30013) on attackerkb.com for more details.
+
+**Installation:**
+```console
+# cp totolink_unauth_rce_cve_2023_30013.rb ~/.msf4/modules/exploits/linux/http/
+# msfconsole
+msf6> reload_all
+```
+**UPDATE September 22, 2023:**<br />
+This module has been added to the main stream of Metasploit and is now available under the module name:<br />
+`exploit/linux/http/totolink_unauth_rce_cve_2023_30013`
+
+https://www.rapid7.com/blog/post/2023/09/22/metasploit-weekly-wrap-up-28/
