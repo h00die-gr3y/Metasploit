@@ -41,7 +41,7 @@ class MetasploitModule < Msf::Exploit::Remote
         ],
         'References' => [
           ['CVE', '2023-30258'],
-          ['URL', 'https://attackerkb.com/topics/uqicA'],
+          ['URL', 'https://attackerkb.com/topics/DFUJhaM5dL/cve-2023-30258'],
           ['URL', 'https://eldstal.se/advisories/230327-magnusbilling.html']
         ],
         'DisclosureDate' => '2023-06-26',
