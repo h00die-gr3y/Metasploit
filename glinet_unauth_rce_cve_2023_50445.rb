@@ -10,7 +10,6 @@ class MetasploitModule < Msf::Exploit::Remote
 
   include Msf::Exploit::Remote::HttpClient
   include Msf::Exploit::CmdStager
-  include Msf::Exploit::Remote::Udp
   prepend Msf::Exploit::Remote::AutoCheck
 
   def initialize(info = {})
@@ -38,7 +37,7 @@ class MetasploitModule < Msf::Exploit::Remote
           - SFT1200: v4.3.6;
           - and potentially others (just try ;-)
 
-          NOTE: Staged meterpreter payloads might core dump on the target, so use stage-less meterpreter payloads
+          NOTE: Staged Meterpreter payloads might core dump on the target, so use stage-less meterpreter payloads
           when using the Linux Dropper target.
         },
         'License' => MSF_LICENSE,
@@ -56,7 +55,7 @@ class MetasploitModule < Msf::Exploit::Remote
           ['URL', 'https://libdzonerzy.so/articles/from-zero-to-botnet-glinet.html'],
           ['URL', 'https://github.com/gl-inet/CVE-issues/blob/main/4.0.0/Using%20Shell%20Metacharacter%20Injection%20via%20API.md']
         ],
-        'DisclosureDate' => '2013-12-10',
+        'DisclosureDate' => '2023-12-10',
         'Platform' => ['unix', 'linux'],
         'Arch' => [ARCH_CMD, ARCH_MIPSLE, ARCH_MIPSBE, ARCH_ARMLE, ARCH_AARCH64],
         'Privileged' => true,
